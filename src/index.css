@@ -1,0 +1,27 @@
+/* Custom Connect Button Glow */
+.wallet-kit-connect-button {
+  padding: 18px 40px !important;
+  font-size: 20px !important;
+  background: linear-gradient(45deg, #00ff88, #00d1ff) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 16px !important;
+  font-weight: bold !important;
+  box-shadow: 0 8px 30px rgba(0, 255, 136, 0.4) !important;
+  transition: all 0.3s !important;
+  cursor: pointer !important;
+}
+
+.wallet-kit-connect-button:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 12px 40px rgba(0, 255, 136, 0.6) !important;
+}
+
+/* Connected State */
+.connected {
+  text-align: center;
+  margin-top: 20px;
+  color: #00ff88;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
