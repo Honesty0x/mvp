@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { WalletKitProvider } from '@mysten/wallet-kit'
 import WalletConnect from './components/WalletConnect'
+import YieldScanner from './components/YieldScanner' // NEW
+import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -14,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           Your AI-Powered Crypto Guardian
         </p>
         <WalletConnect />
+        <YieldScanner /> {/* NEW */}
       </div>
     </WalletKitProvider>
   </React.StrictMode>
