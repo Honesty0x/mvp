@@ -1,60 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { ConnectButton, useWalletKit } from '@mysten/wallet-kit'
+import React from 'react'
+import { useWalletKit } from '@mysten/wallet-kit'
 
 export default function WalletConnect() {
-  const { currentWallet, disconnect } = useWalletKit()
-  const [isLoading, setIsLoading] = useState(true)
+  const { currentWallet, connect, disconnect } = useWalletKit()
 
-  useEffect(() => {
-    // Ensure wallet state is fully loaded
-    setIsLoading(false)
-  }, [currentWallet])
-
-  if (isLoading) {
-    return <div style={{ textAlign: 'center', marginTop: '20px' }}>Loading wallet...</div>
-  }
-
-  if (currentWallet && currentWallet.accounts && currentWallet.accounts.length > 0) {
-    const addr = currentWallet.accounts[0].address
+  if (!currentWallet) {
     return (
       <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <p style={{ color: '#00ff88', fontWeight: 'bold', fontSize: '1.1rem' }}>
-          Connected: {addr.slice(0, 6)}...{addr.slice(-4)}
-        </p>
         <button
-          onClick={() => disconnect()}
+          onClick={() => connect('Slush')} // ← THIS IS IT
           style={{
-            padding: '10px 20px',
-            background: '#ff4444',
+            padding: '14px 28px',
+            background: 'linear-gradient(90deg, #00ff88, #00d1ff)',
             color: 'white',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '12px',
+            fontWeight: 'bold',
             cursor: 'pointer',
-            marginTop: '10px',
+            fontSize: '1.2rem',
+            boxShadow: '0 0 15px rgba(0, 255, 136, 0.6)',
+            transition: 'all 0.3s',
           }}
+          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-          Disconnect Wallet
+          Connect with Slush
         </button>
       </div>
     )
   }
 
+  const address = currentWallet.accounts?.[0]?.address
+  if (!address) return <p style={{ color: 'orange' }}>No address</p>
+
   return (
-    <ConnectButton
-      connectText="Connect Sui Wallet"
-      // @ts-ignore
-      style={{
-        padding: '18px 40px',
-        fontSize: '20px',
-        background: 'linear-gradient(45deg, #00ff88, #00d1ff)',
-        color: 'white',
-        border: 'none',
-        borderRadius: '16px',
-        fontWeight: 'bold',
-        boxShadow: '0 8px 30px rgba(0, 255, 136, 0.4)',
-        transition: 'all 0.3s',
-        cursor: 'pointer',
-      }}
-    />
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <p style={{ color: '#00ff88', fontWeight: 'bold', fontSize: '1.2rem' }}>
+        Connected: {address.slice(0, 6)}...{address.slice(-4)}
+      </p>
+      <button
+        onClick={disconnect}
+        style={{
+          padding: '10px 20px',
+          background: '#ff4444',
+          color: 'white',
+          border: 'none',
+          borderRadius: '8px',
+          cursor: 'pointer',
+        }}
+      >
+        Disconnect
+      </button>
+    </div>
   )
 }
